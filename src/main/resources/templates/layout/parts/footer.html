@@ -1,0 +1,38 @@
+<footer th:fragment="pageFooter" class="Footer">
+	<div class="uk-container uk-container-center">
+		<div class="Footer-serviceLinkWrapper">
+			<div class="uk-grid uk-grid-divider">
+				<div class="uk-width-1-4">
+					<div class="Footer-serviceLinkList">
+						<h3 th:text="#{footer.linklist.headline.first}"></h3>
+						<ul class="uk-list uk-list-space">
+							<li><a th:href="#{footer.linklist.first.information.url}" th:text="#{footer.linklist.first.information}"></a></li>
+							<li><a th:href="#{footer.linklist.first.sitemap.url}" th:text="#{footer.linklist.first.sitemap}"></a></li>
+							<li><a th:href="#{footer.linklist.first.contact.url}" th:text="#{footer.linklist.first.contact}"></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="uk-width-1-4">
+					<div class="Footer-serviceLinkList">
+						<h3 th:text="#{footer.linklist.headline.accessible}"></h3>
+						<ul class="uk-list uk-list-space">
+							<li><span th:text="#{footer.linklist.accessible.label.telefon}"/><span class="u-link-color" th:text="#{footer.linklist.accessible.content.telefon}"/></li>
+							<li><span th:text="#{footer.linklist.accessible.label.mail}"/><a th:href="'mailto:' + #{footer.linklist.accessible.content.mail}" th:text="#{footer.linklist.accessible.content.mail}"/></li>
+							<li><span th:text="#{footer.linklist.accessible.label.web}"/><a th:href="#{footer.linklist.accessible.content.web}" th:text="#{footer.linklist.accessible.content.web}"/></li>
+						</ul>
+					</div>
+				</div>
+				<div class="uk-width-1-4">
+					<div class="Footer-serviceLinkList">
+						<h3 th:text="#{footer.linklist.headline.legal}"></h3>
+						<ul class="uk-list uk-list-space">
+							<li><a th:href="#{footer.linklist.legal.privacy.url}" th:text="#{footer.linklist.legal.privacy}"></a></li>
+							<li><a th:href="#{footer.linklist.legal.impressum.url}" th:text="#{footer.linklist.legal.impressum}"></a></li>
+							<li><a th:href="#{footer.linklist.legal.agb.url}" th:text="#{footer.linklist.legal.agb}"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

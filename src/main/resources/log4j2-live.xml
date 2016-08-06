@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" name="Job Api" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">%d %p [%t] %c - %m%n</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="RollingFile" fileName="/var/log/job-api/job-api.log" filePattern="/var/log/job-api/job-api_%d{MM-dd-yy-HH-mm-ss}-%i.log.gz">
+			<PatternLayout pattern="%d %p [%t] %c - %m%n" />
+			<SizeBasedTriggeringPolicy size="100MB" />
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+		<RollingFile name="Error-File" fileName="/var/log/job-api/error.log" filePattern="/var/log/job-api/error-%d{yyyy-MM-dd}.log.gz" >
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout>
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"/>
+			</Policies>
+			<DefaultRolloverStrategy max="30"/>
+		</RollingFile>
+	</Appenders>
+	
+	<Loggers>
+		<Logger name="org.apache.tiles" level="error" />
+		<Logger name="org.springframework" level="info" />
+		<Logger name="org.springframework.transaction.support.TransactionSynchronizationManager" level="error" />
+		<!--
+		##############################################################################
+		# CAUTION: Warnings in CglibAopProxy informs us about calls to methods       #
+		#          that gets routed directly to the proxy. But when we checked all   #
+		#          warnings we could disable them by setting the log level to ERROR. #
+		############################################################################## 
+		 -->
+		<Logger name="org.springframework.aop.framework.CglibAopProxy" level="error" />
+		<Root level="info">
+			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="Error-File" />
+		</Root>
+	</Loggers>
+</Configuration>

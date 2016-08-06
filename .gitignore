@@ -1,0 +1,10 @@
+**/target
+.classpath
+.project
+.settings
+.idea
+*.iml
+**/data
+**/home
+**/config
+**/application-local.yml

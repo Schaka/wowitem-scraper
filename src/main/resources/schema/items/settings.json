@@ -1,0 +1,67 @@
+{
+
+    "settings": {
+    	"index": {
+    		"number_of_shards" : 2,
+    		"number_of_replicas": 1
+    		},
+        "analysis": {
+            "char_filter": {
+                "&_to_and": {
+                    "type":       "mapping",
+                    "mappings": [ "&=> and "]
+            }},
+            "filter": {
+                "job_stopwords": {
+                    "type":       "stop",
+                    "stopwords_path": "analysis/stopwords.txt"
+            	},
+            	"custom_stems": {
+            		"type": "stemmer_override",
+            		"rules_path": "analysis/custom_stems.txt"
+            	},
+            	"protwords" : {
+            		"type" : "keyword_marker",
+               		"keywords_path" : "analysis/protwords.txt"
+            	},
+            	"synonym": {
+            		"type": "synonym",
+            		"synonyms_path": "analysis/synonyms.txt"
+            	},
+            	"compound": {
+            		"type": "dictionary_decompounder",
+            		"word_list_path": "analysis/compounds.txt"
+            	},
+            	"unique": {
+            		"type": "unique",
+            		"only_on_same_position": "true"
+            	},
+            	"english_stemmer": {
+            		"type": "stemmer",
+            		"name": "light_english"
+            	}
+            },
+            "analyzer": {
+                "item_name": {
+                    "type":         "custom",
+                    "char_filter":  [ "&_to_and" ],
+                    "tokenizer":    "standard",
+                    "filter":       [
+									"lowercase",
+                    				"job_stopwords",
+                    				"synonym",
+									"compound",
+                    				"keyword_repeat",
+                    				"protwords",
+                    				"english_stemmer",
+                    				"custom_stems",
+									"unique"]
+			},	"standard_tokenizer": {
+					"type":         "custom",
+					"char_filter":  [ "&_to_and" ],
+					"tokenizer":    "standard"
+				}
+			}
+		}
+	}
+}

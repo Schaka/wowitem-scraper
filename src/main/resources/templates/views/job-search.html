@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="jedi-layout">
+<head>
+<th:block layout:fragment="cssfiles">
+</th:block>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<h2 class="sub-header">Berufsuche</h2>
+		<div>
+			<input itemType="text" class="form-control" id="search-term" placeholder="Suchbegriff"></input>
+		</div>
+		<div class="table-responsive">
+			<table th:fragment="result-table" id="result-table" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Beruf-ID</th>
+						<th>Searchwords</th>
+					</tr>
+				</thead>
+				<tbody th:if="${jobs != null}">
+					<tr th:each="hit : ${jobs.hits}">
+						<td th:text="${hit.id}">111</td>
+						<td th:text="${hit.source.searchword}">Lorem</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<th:block layout:fragment="script">
+		<script>
+		$('#search-term').on('input', function(){
+			var query = $('#search-term').val();		
+			$.ajax({
+				url : getContext() + '/query/table?q='+query,
+				method : 'POST',
+				contentType : 'application/json',
+				success : function(data, textStatus, jqXHR) {
+					$('#result-table').replaceWith(data);
+				}
+			});	
+		});
+		</script>
+	</th:block>
+</body>
+</html>

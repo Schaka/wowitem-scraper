@@ -1,0 +1,30 @@
+<header th:fragment="pageHeader" class="Header">
+	<div class="uk-container uk-container-center">
+		<div class="uk-grid">
+			<div class="uk-width-1-1">
+				<a th:href="@{/}" th:alt="'zurück zu der startseite'">
+					<div th:class="'uk-float-left'">
+						<img th:src="@{/images/sitelogo.jpg}" th:class="'uk-float-left Header-siteLogo'"/>
+						<h2 th:class="'uk-float-right Header-SiteHeadline'" th:utext="'Monitor Lohngerechtigkeit'"></h2>
+					</div>
+				</a>
+					<div class="uk-float-right">
+						<ul class="Header-actionNavigation">
+							<li sec:authorize="hasAuthority('ROLE_USER')">
+								<form th:action="@{/logout}" method="post" id="logout-form">
+									<button itemType="submit" th:class="logoutButton">Logout</button>
+								</form>
+							</li>
+						</ul>
+					</div>
+			</div>
+		</div>
+		<div class="uk-grid">
+			<div class="uk-width-1-1">
+				<div class="Header-navigationWrapper">
+					<div th:class="'uk-grid Header-ContentNavigation-Wrapper Header-firstNavigationLevel'" th:include="'layout/parts/navigation/indexnavigation'"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

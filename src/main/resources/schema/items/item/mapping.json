@@ -1,0 +1,86 @@
+{
+	"item":{
+		"properties": {
+			"id": {
+				"type": "long"
+			},
+			"archived": {
+				"type": "date",
+				"format": "yyyy-MM-dd"
+			},
+			"name": {
+				"type": "string",
+				"analyzer": "item_name"
+			},
+			"pickupType": {
+				"type": "string"
+			},
+			"itemType": {
+				"type": "string"
+			},
+			"quality": {
+				"type": "string"
+			},
+			"itemSlot": {
+				"type": "string"
+			},
+			"armor": {
+				"type": "string"
+			},
+			"set": {
+				"type": "string"
+			},
+			"damage": {
+				"type": "string"
+			},
+			"speed": {
+				"type": "string"
+			},
+			"stamina": {
+				"type": "string"
+			},
+			"intellect": {
+				"type": "string"
+			},
+			"spirit": {
+				"type": "string"
+			},
+			"strength": {
+				"type": "string"
+			},
+			"agility": {
+				"type": "string"
+			},
+			"fireRes": {
+				"type": "string"
+			},
+			"frostRes": {
+				"type": "string"
+			},
+			"natureRes": {
+				"type": "string"
+			},
+			"shadowRes": {
+				"type": "string"
+			},
+			"arcaneRes": {
+				"type": "string"
+			},
+			"levelReq": {
+				"type": "string"
+			},
+			"spell1": {
+				"type": "string"
+			},
+			"spell2": {
+				"type": "string"
+			},
+			"spell3": {
+				"type": "string"
+			},
+			"spell4": {
+				"type": "string"
+			}
+		}
+	}
+}
