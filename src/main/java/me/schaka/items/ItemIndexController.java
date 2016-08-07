@@ -74,15 +74,17 @@ public class ItemIndexController {
 
 	private void doForParser(ItemParser parser, LocalDate date){
 		ArrayList<Integer> retry = new ArrayList<>(5000);
-		IntStream.range(1, 40000).parallel().forEach(i -> {
+		IntStream.range(1, parser.itemId()).parallel().forEach(i -> {
 			try {
 				itemService.saveNewOnlyAsync(parser.parsePage(Jsoup.connect(archiveLinkForDate(date)+parser.getLink(i)).timeout(1000).get()));
 			} catch (HttpStatusException httpEx){
 
+			} catch (StringIndexOutOfBoundsException stringEx){
+
 			} catch(SocketTimeoutException timeOut) {
 				retry.add(i);
 			} catch (Exception e) {
-				LOG.error("Failed at "+parser.getLink(i), e);
+				LOG.error("Failed at "+archiveLinkForDate(date)+parser.getLink(i), e);
 			}
 		});
 

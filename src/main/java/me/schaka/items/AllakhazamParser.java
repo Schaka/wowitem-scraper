@@ -27,6 +27,11 @@ public class AllakhazamParser extends ItemParser {
             .build();
 
     @Override
+    public int itemId() {
+        return 25000;
+    }
+
+    @Override
     public String getLink(int id) {
         return "http://wow.allakhazam.com/db/item.html?witem="+id;
     }

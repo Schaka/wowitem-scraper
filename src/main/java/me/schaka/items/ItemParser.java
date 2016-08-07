@@ -118,6 +118,8 @@ public abstract class ItemParser {
         return result;
     }
 
+    public abstract int itemId();
+
     public abstract String getLink(int id);
 
     protected abstract LocalDate getArchived(Document page);

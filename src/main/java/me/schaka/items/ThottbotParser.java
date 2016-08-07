@@ -28,6 +28,11 @@ public class ThottbotParser extends ItemParser{
             .build();
 
     @Override
+    public int itemId() {
+        return 40000;
+    }
+
+    @Override
     public String getLink(int id) {
         return "http://thottbot.com/?i="+id;
     }
