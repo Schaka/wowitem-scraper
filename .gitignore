@@ -5,6 +5,8 @@
 .idea
 *.iml
 **/data
+**/_data
+**/__data
 **/home
 **/config
 **/application-local.yml
