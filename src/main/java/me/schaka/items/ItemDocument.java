@@ -31,6 +31,8 @@ public class ItemDocument {
 
 	private String set;
 
+	private String patch;
+
 	private String damage;
 
 	private String speed;
@@ -139,6 +141,14 @@ public class ItemDocument {
 
 	public String getSet() {
 		return set;
+	}
+
+	public String getPatch() {
+		return patch;
+	}
+
+	public void setPatch(String patch) {
+		this.patch = patch;
 	}
 
 	public void setSet(String set) {

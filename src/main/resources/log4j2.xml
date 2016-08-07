@@ -7,8 +7,7 @@
 	</Appenders>
 	
 	<Loggers>
-		<Logger name="de.personalmarkt" level="debug" />
-		<Logger name="org.elasticsearch" level="debug" />
+		<Logger name="me.schaka" level="debug" />
 		<Logger name="org.springframework" level="info" />
 		<Logger name="org.springframework.transaction.support.TransactionSynchronizationManager" level="error" />
 		<!--

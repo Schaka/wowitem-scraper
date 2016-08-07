@@ -30,6 +30,9 @@
 			"set": {
 				"type": "string"
 			},
+			"patch": {
+				"type": "string"
+			},
 			"damage": {
 				"type": "string"
 			},
