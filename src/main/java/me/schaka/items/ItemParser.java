@@ -150,7 +150,7 @@ public abstract class ItemParser {
                 patch = entry;
             }
         }
-        return patch.getValue();
+        return patch != null ? patch.getValue() : "1.1";
     }
 
     protected void parseTableStructure(ItemDocument item, Elements htmlBody){
