@@ -84,6 +84,7 @@ public abstract class ItemParser {
     );
 
     protected static final ImmutableMap<LocalDate, String> PATCHES = ImmutableMap.<LocalDate, String>builder()
+            .put(LocalDate.of(2000, Month.JANUARY, 1), "1.0")
             .put(LocalDate.of(2004, Month.NOVEMBER, 7), "1.1")
             .put(LocalDate.of(2004, Month.DECEMBER, 18), "1.2")
             .put(LocalDate.of(2005, Month.MARCH, 7), "1.3")
@@ -150,7 +151,7 @@ public abstract class ItemParser {
                 patch = entry;
             }
         }
-        return patch != null ? patch.getValue() : "1.1";
+        return patch != null ? patch.getValue() : "1.0";
     }
 
     protected void parseTableStructure(ItemDocument item, Elements htmlBody){
