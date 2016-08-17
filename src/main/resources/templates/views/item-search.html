@@ -9,41 +9,68 @@
 
 <body>
 	<div layout:fragment="content">
-		<h2 class="sub-header">Berufsuche</h2>
-		<div>
-			<input itemType="text" class="form-control" id="search-term" placeholder="Suchbegriff"></input>
+		<h2 class="sub-header">Item-Search</h2>
+		<div class="row">
+			<input type="text" class="form-control" id="search-term" placeholder="Search term" />
+			<button class="btn btn-success" id="search-btn">Search</button>
 		</div>
-		<div class="table-responsive">
-			<table th:fragment="result-table" id="result-table" class="table table-striped">
+		<div class="table-responsive" id="result-table">
+			<th:block th:if="${items != null}" th:fragment="result-table">
+			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>Beruf-ID</th>
-						<th>Searchwords</th>
+						<th>Item-ID</th>
+						<th>Name</th>
+						<th>Patch</th>
 					</tr>
 				</thead>
-				<tbody th:if="${jobs != null}">
-					<tr th:each="hit : ${jobs.hits}">
-						<td th:text="${hit.id}">111</td>
-						<td th:text="${hit.source.searchword}">Lorem</td>
+				<tbody>
+					<tr th:each="item : ${items.content}">
+						<td th:text="${item.itemId}">111</td>
+						<td><a th:href="@{/items/search/}+${item.id}" th:text="${item.name}">Item Name</a></td>
+						<td th:text="${item.patch}">Patch 1.5</td>
 					</tr>
 				</tbody>
 			</table>
+			<div class="row" id="paging-container" th:attr="data-page=${items.number}">
+				<button th:unless="${items.first}" class="btn btn-primary" id="page-prev">Previous Page</button>
+				<button th:unless="${items.last}" class="btn btn-primary" id="page-next">Next Page</button>
+			</div>
+			</th:block>
 		</div>
 	</div>
 
 	<th:block layout:fragment="script">
 		<script>
-		$('#search-term').on('input', function(){
-			var query = $('#search-term').val();		
+		/*<![CDATA[*/
+
+		function submitSearch(page){
+			var query = $('#search-term').val();
 			$.ajax({
-				url : getContext() + '/query/table?q='+query,
+				url : getContext() + '/items/search?q='+query+'&page='+page,
 				method : 'POST',
 				contentType : 'application/json',
 				success : function(data, textStatus, jqXHR) {
-					$('#result-table').replaceWith(data);
+					$('#result-table').html(data);
 				}
-			});	
+			});
+		}
+
+		$('#search-btn').click(function(){
+			submitSearch(0);
 		});
+
+		$(document).on('click', '#page-next', function(){
+			var page = $('#paging-container').data('page');
+			submitSearch(page+1);
+		});
+
+		$(document).on('click', '#page-prev', function(){
+			var page = $('#paging-container').data('page');
+			submitSearch(page-1);
+		});
+
+		/*]]>*/
 		</script>
 	</th:block>
 </body>

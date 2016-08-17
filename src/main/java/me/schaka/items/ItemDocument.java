@@ -290,5 +290,4 @@ public class ItemDocument {
 	public void setSpell4(String spell4) {
 		this.spell4 = spell4;
 	}
-
 }

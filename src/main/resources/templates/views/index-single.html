@@ -1,77 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-	layout:decorator="wow-item">
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  layout:decorator="wow-item">
 <head>
-<th:block layout:fragment="cssfiles">
-</th:block>
+	<th:block layout:fragment="cssfiles">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+	</th:block>
 </head>
 
 <body>
-	<div layout:fragment="content">
-		<h2 class="sub-header">Item-Search</h2>
-		<div class="row">
-			<input itemType="text" class="form-control" id="search-term" placeholder="Search term" />
-			<button class="btn btn-success" id="search-btn">Search</button>
-		</div>
-		<div class="table-responsive" id="result-table">
-			<th:block th:if="${items != null}" th:fragment="result-table">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Item-ID</th>
-						<th>Name</th>
-						<th>Patch</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="item : ${items.content}">
-						<td th:text="${item.itemId}">111</td>
-						<td th:text="${item.name}">Lorem</td>
-						<td th:text="${item.patch}">Lorem</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="row" id="paging-container" th:attr="data-page=${items.number}">
-				<button th:unless="${items.first}" class="btn btn-primary" id="page-prev">Previous Page</button>
-				<button th:unless="${items.last}" class="btn btn-primary" id="page-next">Next Page</button>
-			</div>
-			</th:block>
-		</div>
+<div layout:fragment="content">
+	<h2 class="sub-header">Index all items at a certain date</h2>
+	<div class="row">
+		<input type="text" class="form-control col-sm-2" id="index-date" placeholder="2004-01-01" />
+		<input type="text" class="form-control col-sm-8" id="index-link" placeholder="http://wow.allakhazam.com/db/item.html?witem=2933" />
+		<button class="btn btn-success" id="submit-btn">Submit</button>
 	</div>
+	<div class="row">
+		<span id="response"></span>
+	</div>
+</div>
 
-	<th:block layout:fragment="script">
-		<script>
+<th:block layout:fragment="script">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+	<script>
 		/*<![CDATA[*/
 
-		function submitSearch(page){
-			var query = $('#search-term').val();
-			$.ajax({
-				url : getContext() + '/items/search?q='+query+'&page='+page,
-				method : 'POST',
-				contentType : 'application/json',
-				success : function(data, textStatus, jqXHR) {
-					$('#result-table').html(data);
-				}
-			});
-		}
-
-		$('#search-btn').click(function(){
-			submitSearch(0);
+		$('#index-date').datepicker({
+			format: 'yyyy-mm-dd',
+			startDate: '2004-01-01',
+			startView: '2004-01-01'
 		});
 
-		$(document).on('click', '#page-next', function(){
-			var page = $('#paging-container').data('page');
-			submitSearch(page+1);
-		});
+		$('#index-date').datepicker('update', '2004-01-01');
 
-		$(document).on('click', '#page-prev', function(){
-			var page = $('#paging-container').data('page');
-			submitSearch(page-1);
+		$('#submit-btn').click(function() {
+			var date = $('#index-date').val();
+			var link = $('#index-link').val();
+			var type = null;
+
+			if(link.includes('allakhazam')) {
+				type = 'allakhazam';
+			} else if(link.includes('thottbot')) {
+				type = 'thottbot';
+			}
+
+			if(type != null) {
+				$.ajax({
+					url : getContext() + '/items/index-single/'+type+'?date='+date+'&link='+link,
+					method : 'POST',
+					contentType : 'application/json',
+					timeout : 3000,
+					success : function(data, textStatus, jqXHR) {
+						$('#response').html('The link has been indexed (if available) and you and others can find it.');
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						$('#response').html('An uncaught error has occured.');
+					}
+				});
+			} else {
+				$('#response').html('Please enter a valid link.');
+			}
 		});
 
 		/*]]>*/
 		</script>
-	</th:block>
+</th:block>
 </body>
 </html>

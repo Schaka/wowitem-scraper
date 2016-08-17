@@ -28,7 +28,7 @@ spring:
       cluster-name: item-api
 
 server:
-  port: 8080
+  port: 80
 
 flyway:
   schemas: public
