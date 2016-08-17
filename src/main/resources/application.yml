@@ -19,26 +19,16 @@ spring:
   data:
     elasticsearch:
       properties:
-        node.local: false
+        node.local: true
         path.data: data/
         path.home: home/
         path.conf: config/
-        transport.tcp.port: "8083-8100"
-        transport.host: "_site_"
-        http.enabled: true
-        http.cors.enabled: true
-        http.cors.allow-origin: "*"
         index.search.slowlog.threshold.query.info: "1ms"
         index.search.slowlog.threshold.fetch.info: "1ms"
       cluster-name: item-api
 
 server:
   port: 8080
-management:
-  port: 8082
-  info:
-    git:
-      mode: full
 
 flyway:
   schemas: public
